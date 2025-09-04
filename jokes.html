@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: sans-serif;
+            padding-top: 3rem;
+        }
+        h1{
+            font-size: 3rem;
+        }
+        .joke-div
+        {
+            font-size: 1.8rem;
+        }
+
+        .container
+        {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        #next
+        {
+            font-size: 1.2rem;
+            color: white;
+            background-color: black;
+            padding: 5px 15px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Jokes</h1>
+        <div class="joke-div"></div>
+        <button id="next">Next Joke</button>
+    </div>
+    
+
+    <script>
+        const apiDiv = document.querySelector(".joke-div")
+        const next = document.getElementById("next")
+
+        const API = "https://icanhazdadjoke.com/"
+
+        const fetchData =() =>{
+            fetch(API, {
+                headers: {
+                    Accept : "Application/json"
+                },
+            }).then((res) =>{
+                return res.json()
+            }).then((data) =>{
+                apiDiv.textContent = data.joke
+            })
+            .catch((error) =>{
+                console.log(error)
+            })
+        }
+    
+        fetchData()
+        next.addEventListener("click",()=>{fetchData()})
+
+    </script>
+</body>
+</html>
